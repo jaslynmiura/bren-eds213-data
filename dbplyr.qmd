@@ -1,0 +1,33 @@
+---
+title: "data"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(DBI)
+library(duckdb)
+library(dbplyr)
+```
+
+## Connecting to a database
+```{r}
+conn <- DBI::dbConnect(duckdb::duckdb(),
+                       dbdir = "database/database.duckdb")
+conn
+```
+
+```{r}
+DBI::dbListTables(conn)
+```
+
+Look at one table
+```{r}
+species <- tbl(conn, "Species")
+species
+```
+
+```{r}
+DBI::dbDisconnect(conn, shutdown = TRUE)
+```
+
